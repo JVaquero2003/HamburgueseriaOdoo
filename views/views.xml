@@ -72,7 +72,9 @@
 <group>
 <field name="name"/>
 <field name="descripcion"/>
-<field name="precio" />
+<field name="precio1" />
+<field name="precio2" />
+<field name="media_precio" />
 <field name="tienda_id"/>
 <field name="hamburguesa_ids"/>
 <field name="bebida_ids"/>
@@ -90,7 +92,9 @@
 <tree string="Promocion">
 <field name="name"/>
 <field name="descripcion"/>
-<field name="precio" />
+<field name="precio1" />
+<field name="precio2" />
+<field name="media_precio" />
 <field name="tienda_id"/>
 <field name="hamburguesa_ids"/>
 <field name="bebida_ids"/>
@@ -107,7 +111,9 @@
 <search string="Promocion">
     <field name="name"/>
     <field name="descripcion"/>
-    <field name="precio" />
+    <field name="precio1" />
+    <field name="precio2" />
+    <field name="media_precio" />
     <field name="tienda_id"/>
     <field name="hamburguesa_ids"/>
     <field name="bebida_ids"/>
@@ -230,6 +236,62 @@
 
 <!-- END BEBIDA-->
 
+<!--CREATE PEROSONAL TREE-->
+<record id="view_hamburgueseria_personal_tree" model="ir.ui.view">
+    <field name="name">hamburgueseria.personal.tree</field>
+    <field name="model">hamburgueseria.personal</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="descripcion"/>
+            <field name="fecha_nacimiento"/>
+            <field name="fecha_contratacion"/>
+            <field name="salario"/>
+            <field name="direccion"/>
+            <field name="telefono"/>
+            <field name="email"/>
+        </tree>
+    </field>
+</record>
+
+<!--CREATE JEFE TREE-->
+<record id="view_hamburgueseria_jefe_tree" model="ir.ui.view">
+    <field name="name">hamburgueseria.jefe.tree</field>
+    <field name="model">hamburgueseria.jefe</field>
+    <field name="inherit_id" ref="view_hamburgueseria_personal_tree"/>
+    <field name="arch" type="xml">
+        <field name="descripcion" position="after">
+            <field name="rango"/>
+        </field>
+    </field>
+</record>
+
+<!--CREATE EMPLEADO TREE-->
+<record id="view_hamburgueseria_empleado_tree" model="ir.ui.view">
+    <field name="name">hamburgueseria.empleado.tree</field>
+    <field name="model">hamburgueseria.empleado</field>
+    <field name="inherit_id" ref="view_hamburgueseria_personal_tree"/>
+    <field name="arch" type="xml">
+        <field name="descripcion" position="after">
+            <field name="jornada"/>
+        </field>
+    </field>
+</record>
+
+<!--CREATE ACTION JEFE-->
+<record id="action_jefe" model="ir.actions.act_window">
+    <field name="name">Jefe</field>
+    <field name="res_model">hamburgueseria.jefe</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<!--CREATE ACTION EMPLEADO-->
+<record id="action_empleado" model="ir.actions.act_window">
+    <field name="name">Empleado</field>
+    <field name="res_model">hamburgueseria.empleado</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
 <!-- Menu items -->
 
 <menuitem id="menu_hamburgueseria" name="Hamburgueseria" sequence="10"/>
@@ -237,4 +299,7 @@
 <menuitem id="menu_promocion" name="Promocion" action="action_promocion" parent="menu_hamburgueseria" sequence="2"/>
 <menuitem id="menu_hamburguesa" name="Hamburguesa" action="action_hamburguesa" parent="menu_hamburgueseria" sequence="3"/>
 <menuitem id="menu_bebida" name="Bebida" action="action_bebida" parent="menu_hamburgueseria" sequence="4"/>
+<menuitem id="menu_personal" name="Personal" parent="menu_hamburgueseria" sequence="5"/>
+<menuitem id="menu_jefe" name="Jefe" action="action_jefe" parent="menu_personal" sequence="1"/>
+<menuitem id="menu_empleado" name="Empleado" action="action_empleado" parent="menu_personal" sequence="2"/>
 </odoo>

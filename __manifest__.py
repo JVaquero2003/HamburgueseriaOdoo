@@ -21,4 +21,5 @@
     'data': [
         'views/views.xml',
     ],
+    'qweb': ['static/src/description/icon.svg']
 }
